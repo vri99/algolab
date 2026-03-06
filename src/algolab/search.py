@@ -1,12 +1,10 @@
-from typing import List
-
 """
 Binary search.
 
 Time complexity: O(log n)
 Space complexity: O(1)
 """
-def binary_search(array: List[int], target: int) -> int | None:
+def binary_search(array: list[int], target: int) -> int | None:
     low: int = 0
     high: int = len(array) - 1
 
