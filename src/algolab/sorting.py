@@ -43,3 +43,40 @@ def find_smallest(arr: list[int], start_from: int) -> int:
            smallest_index = i
 
     return smallest_index
+
+def merge(left: list[int], right: list[int]) -> list[int]:
+    # left і right already sorted
+    result: list[int] = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result += left[i:]
+    result += right[j:]
+
+    return result
+
+"""
+Merge sort.
+
+Time complexity: O(n log n)
+Space complexity: O(log n)
+"""
+def merge_sort(arr: list[int]) -> list[int]:
+    # base case
+    if len(arr) < 2: return arr
+
+    # get middle of the array
+    mid = len(arr) // 2
+    # recursively call merge_sort
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+
+    # merge two sides
+    return merge(left, right)
