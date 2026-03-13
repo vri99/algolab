@@ -10,7 +10,7 @@ class Node:
         head: Node | None = self
 
         while head:
-            if head.data[0] == data[0]:
+            if head.data[0] == data:
                 return head.data[1]
             head = head.next
 
