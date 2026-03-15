@@ -11,7 +11,7 @@ def quicksort(arr: list[int]) -> list[int]:
     pivot_index: int = len(arr) // 2
     pivot: int = arr[pivot_index] # get pivot from the middle to gain n log n complexity
 
-    rest = arr[:pivot_index] + arr[pivot_index + 1:] # remove pivot from the sorting process
+    rest: list[int] = arr[:pivot_index] + arr[pivot_index + 1:] # remove pivot from the sorting process
 
     less: list[int] = [i for i in rest if i <= pivot]
     greater: list[int] = [i for i in rest if i > pivot]
@@ -45,7 +45,7 @@ def find_smallest(arr: list[int], start_from: int) -> int:
     return smallest_index
 
 def merge(left: list[int], right: list[int]) -> list[int]:
-    # left і right already sorted
+    # left & right already sorted
     result: list[int] = []
     i = j = 0
 
@@ -73,10 +73,10 @@ def merge_sort(arr: list[int]) -> list[int]:
     if len(arr) < 2: return arr
 
     # get middle of the array
-    mid = len(arr) // 2
+    mid: int = len(arr) // 2
     # recursively call merge_sort
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
+    left: list[int] = merge_sort(arr[:mid])
+    right: list[int] = merge_sort(arr[mid:])
 
     # merge two sides
     return merge(left, right)
