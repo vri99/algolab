@@ -22,3 +22,25 @@ def binary_search(array: list[int], target: int) -> int | None:
 
     return None
 
+"""
+Prefix Sum.
+
+Time complexity: O(n)
+"""
+def prefix_sum(array: list[int], target: int) -> int | None:
+    prefix_sum_set: dict[int, int] = {0: 1}
+    current_sum: int = 0
+    total_target: int = 0
+
+    for i in range(len(array)):
+        # accumulate all sum with current int
+        current_sum += array[i]
+        # add all known sums starting from index: 0
+        prefix_sum_set[current_sum] = prefix_sum_set.get(current_sum, 0) + 1
+
+        # increment each found range of sum of elements that = target
+        if prefix_sum_set.get(current_sum - target) is not None:
+            total_target += prefix_sum_set[current_sum - target]
+
+    # return total number of found ranges
+    return total_target
