@@ -1,5 +1,6 @@
 from typing import Any
 
+# Restriction: cannot delete root element at the current implementation
 class BSTree:
     def __init__(self, data: Any) -> None:
         self.data = data
@@ -30,28 +31,41 @@ class BSTree:
         if node is None:
             return
 
-        if node.left is None and node.right is None:
-            node.data = None
-            return
+        # Case #1: node with no child -> just delete it
+        if node.left is None:
+            # Case 1 & 2 (No left child or no children)
+            self.transplant(node, node.right)
+        elif  node.right is None:
+            # Case 2 (No right child)
+            self.transplant(node, node.left)
+        else:
+            right_leftmost: BSTree | None = node.right.find_leftmost()
+            if right_leftmost is not None:
+                if right_leftmost.parent.data != node.data:
+                    self.transplant(node, right_leftmost.right)
+                    right_leftmost.right = node.right
+                    right_leftmost.right.parent = node
+                self.transplant(node, right_leftmost)
+                right_leftmost.left = node.left
+                right_leftmost.left.parent = node
 
-        if node.left is None and node.right is not None:
-            node.data = node.right.data
-            node.right = None
-            return
+    def find_leftmost(self) -> BSTree | None:
+        if self.left is None:
+            return self
+        return self.left.find_leftmost()
 
-        if node.right is None and node.left is not None:
-            node.data = node.left.data
-            node.left = None
-            return
+    def transplant(self, u, v):
+        if u == u.parent.left:
+            u.parent.left = v
+        else:
+            u.parent.right = v
 
-        
+        if v is not None:
+            v.parent = u.parent
 
     def search(self, target: int) -> Any:
-        if target is None:
-            return
-
-        if type(target) is not int:
-            return
+        if target is None or type(target) is not int:
+            return None
 
         if self.data == target:
             return self
@@ -79,15 +93,8 @@ class BSTree:
 
 if __name__ == "__main__":
     test = BSTree(5)
-
-    test.insert(7)
-    test.insert(2)
     test.insert(3)
-
+    test.insert(7)
+    test.delete(5)
     print(test.__display__())
-
-    print(test.search(1))
-    print(test.search(5).data)
-    print(test.search(7).data)
-    print(test.search(7).data)
 
