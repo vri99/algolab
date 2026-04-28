@@ -1,7 +1,10 @@
 The project covers different sorting and searching algorithms for several purposes:
-  1. Learn Python
-  2. Learn Algorithms
-  3. Learn Data Structures
+Learn:
+  1. Python
+  2. Algorithms
+  3. Data Structures
+  4. Big O notation
+  5. Invatiants 
 
 Searching algos:
   1. Binary search
